@@ -25,6 +25,7 @@ public partial class HealthComponent : Node
         }
     }
 
+    [Export]
     public float MaxHealth{
         get => maxHealth;
         private set{
@@ -55,6 +56,6 @@ public partial class HealthComponent : Node
 
 	public override void _Ready()
 	{
-        CallDeferred("InitCurrentHealth");
+        CallDeferred(nameof(InitCurrentHealth));
 	}
 }

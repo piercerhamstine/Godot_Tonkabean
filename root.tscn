@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://do2almsuihljt"]
+[gd_scene load_steps=13 format=3 uid="uid://do2almsuihljt"]
 
 [ext_resource type="Script" path="res://Scripts/Player/CharacterController.cs" id="1_4g4n2"]
 [ext_resource type="Script" path="res://Scripts/Camera/SmoothFollow.cs" id="1_juo6i"]
@@ -6,6 +6,7 @@
 [ext_resource type="TileSet" uid="uid://c8af2smgddfjf" path="res://groundtiles.tres" id="2_ced8p"]
 [ext_resource type="Script" path="res://Scripts/Weapons/WeaponRanged.cs" id="4_o70hc"]
 [ext_resource type="PackedScene" uid="uid://bugqlquoo3gfn" path="res://Scripts/Entities/Projectiles/ProjectileTypes/Bolt.tscn" id="5_2wr5w"]
+[ext_resource type="Script" path="res://Scripts/Components/HurtboxComponent.cs" id="7_lu24f"]
 [ext_resource type="PackedScene" uid="uid://g6nyf6des1md" path="res://Scenes/Components/HealthComponent.tscn" id="8_ifu0s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0x2xt"]
@@ -78,7 +79,9 @@ position = Vector2(-152, -42)
 [node name="Square" type="Sprite2D" parent="Enemy"]
 texture = ExtResource("1_r2rtj")
 
-[node name="Hurtbox" type="Area2D" parent="Enemy"]
+[node name="Hurtbox" type="Area2D" parent="Enemy" node_paths=PackedStringArray("myHealthComponenet")]
+script = ExtResource("7_lu24f")
+myHealthComponenet = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Hurtbox"]
 shape = SubResource("RectangleShape2D_ecplr")
@@ -87,3 +90,4 @@ shape = SubResource("RectangleShape2D_ecplr")
 shape = SubResource("RectangleShape2D_rd7id")
 
 [node name="HealthComponent" parent="Enemy" instance=ExtResource("8_ifu0s")]
+MaxHealth = 20.0

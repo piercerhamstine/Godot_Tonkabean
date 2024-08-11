@@ -10,6 +10,7 @@ size = Vector2(32, 32)
 modulate = Color(0.813627, 0.732353, 1, 1)
 scale = Vector2(0.25, 0.25)
 script = ExtResource("1_shvxm")
+damage = 10.0
 speed = 7.0
 
 [node name="Square" type="Sprite2D" parent="."]

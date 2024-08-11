@@ -24,8 +24,6 @@ public partial class SmoothFollow : Camera2D
     {
         float targetX = Mathf.Lerp(this.GlobalPosition.X, target.GlobalPosition.X, lerpWeight);
         float targetY = Mathf.Lerp(this.GlobalPosition.Y, target.GlobalPosition.Y, lerpWeight);
-
-        GD.Print(target.GlobalPosition.X - this.GlobalPosition.X);
         
         this.GlobalPosition = new Vector2(targetX, -Mathf.Clamp(targetY, 40, 1000));
     }
