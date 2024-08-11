@@ -1,0 +1,89 @@
+[gd_scene load_steps=12 format=3 uid="uid://do2almsuihljt"]
+
+[ext_resource type="Script" path="res://Scripts/Player/CharacterController.cs" id="1_4g4n2"]
+[ext_resource type="Script" path="res://Scripts/Camera/SmoothFollow.cs" id="1_juo6i"]
+[ext_resource type="Texture2D" uid="uid://dh06lia7b57jr" path="res://square.png" id="1_r2rtj"]
+[ext_resource type="TileSet" uid="uid://c8af2smgddfjf" path="res://groundtiles.tres" id="2_ced8p"]
+[ext_resource type="Script" path="res://Scripts/Weapons/WeaponRanged.cs" id="4_o70hc"]
+[ext_resource type="PackedScene" uid="uid://bugqlquoo3gfn" path="res://Scripts/Entities/Projectiles/ProjectileTypes/Bolt.tscn" id="5_2wr5w"]
+[ext_resource type="PackedScene" uid="uid://g6nyf6des1md" path="res://Scenes/Components/HealthComponent.tscn" id="8_ifu0s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0x2xt"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yjj7t"]
+size = Vector2(3582, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecplr"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rd7id"]
+size = Vector2(32, 32)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+zoom = Vector2(2, 2)
+script = ExtResource("1_juo6i")
+lerpWeight = 0.1
+target = NodePath("../Player")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(0, -30)
+script = ExtResource("1_4g4n2")
+
+[node name="Square" type="Sprite2D" parent="Player"]
+texture = ExtResource("1_r2rtj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_0x2xt")
+
+[node name="Weapon" type="Node2D" parent="Player"]
+
+[node name="Square2" type="Sprite2D" parent="Player/Weapon" node_paths=PackedStringArray("owner")]
+self_modulate = Color(1, 0.233642, 0.358188, 1)
+position = Vector2(0, -5)
+scale = Vector2(0.15, 1)
+texture = ExtResource("1_r2rtj")
+script = ExtResource("4_o70hc")
+owner = NodePath("../..")
+projectileType = ExtResource("5_2wr5w")
+projectileCount = 1.0
+
+[node name="ProjectileSpawn" type="Node2D" parent="Player/Weapon/Square2"]
+position = Vector2(0, -17)
+scale = Vector2(6.66667, 1)
+
+[node name="Square" type="Sprite2D" parent="Player/Weapon/Square2/ProjectileSpawn"]
+self_modulate = Color(7.70092e-07, 0.79277, 0.469195, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_r2rtj")
+
+[node name="ground" type="TileMap" parent="."]
+scale = Vector2(4, 4)
+tile_set = ExtResource("2_ced8p")
+format = 2
+layer_0/tile_data = PackedInt32Array(65535, 0, 0, 65534, 0, 0, 1, 0, 0, 2, 65536, 0, 3, 65536, 0, 4, 65536, 0, 5, 0, 0, 65532, 0, 0, 65533, 65536, 0, 65530, 0, 0, 0, 0, 0, 65531, 65536, 0, 65529, 65536, 0, 65528, 0, 0, 6, 0, 0, 7, 0, 0, 8, 65536, 0, 9, 0, 0, 10, 65536, 0, 11, 0, 0, 14, 0, 0, 13, 0, 0, 15, 65536, 0, 12, 65536, 0, 65527, 65536, 0, 65526, 0, 0, 65525, 0, 0, 16, 0, 0)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ground"]
+scale = Vector2(0.25, 0.25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ground/StaticBody2D"]
+position = Vector2(384, 64)
+shape = SubResource("RectangleShape2D_yjj7t")
+
+[node name="Enemy" type="CharacterBody2D" parent="."]
+position = Vector2(-152, -42)
+
+[node name="Square" type="Sprite2D" parent="Enemy"]
+texture = ExtResource("1_r2rtj")
+
+[node name="Hurtbox" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Hurtbox"]
+shape = SubResource("RectangleShape2D_ecplr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+shape = SubResource("RectangleShape2D_rd7id")
+
+[node name="HealthComponent" parent="Enemy" instance=ExtResource("8_ifu0s")]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bugqlquoo3gfn"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/Projectiles/Projectile.cs" id="1_shvxm"]
+[ext_resource type="Texture2D" uid="uid://dh06lia7b57jr" path="res://square.png" id="2_nx1qk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hx35y"]
+size = Vector2(32, 32)
+
+[node name="Bolt" type="Area2D"]
+modulate = Color(0.813627, 0.732353, 1, 1)
+scale = Vector2(0.25, 0.25)
+script = ExtResource("1_shvxm")
+speed = 7.0
+
+[node name="Square" type="Sprite2D" parent="."]
+texture = ExtResource("2_nx1qk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.38419e-07, -2.38419e-07)
+shape = SubResource("RectangleShape2D_hx35y")
