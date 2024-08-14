@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://dyvy2y0dnuf7h"]
+
+[ext_resource type="Texture2D" uid="uid://dh06lia7b57jr" path="res://square.png" id="1_h2qd2"]
+[ext_resource type="Script" path="res://Scripts/Entities/Enemies/Goblin.cs" id="1_kiaom"]
+[ext_resource type="PackedScene" uid="uid://bbqvy0obumerd" path="res://Scenes/Components/VelocityComponent.tscn" id="2_njf8n"]
+[ext_resource type="PackedScene" uid="uid://g6nyf6des1md" path="res://Scenes/Components/HealthComponent.tscn" id="3_vsc6d"]
+[ext_resource type="PackedScene" uid="uid://w8iymrr073ao" path="res://Scenes/Components/HurtboxComponent.tscn" id="4_qycgh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p3jy8"]
+size = Vector2(32, 32)
+
+[node name="Goblin" type="CharacterBody2D" node_paths=PackedStringArray("myHealthComponent", "myVelocityComponent")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_kiaom")
+myHealthComponent = NodePath("HealthComponent")
+myVelocityComponent = NodePath("VelocityComponent")
+
+[node name="Square" type="Sprite2D" parent="."]
+self_modulate = Color(0.383529, 0.830992, 7.70092e-07, 1)
+texture = ExtResource("1_h2qd2")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("2_njf8n")]
+MaxSpeed = 100.0
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_vsc6d")]
+MaxHealth = 20.0
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("myHealthComponenet") instance=ExtResource("4_qycgh")]
+myHealthComponenet = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p3jy8")

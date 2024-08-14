@@ -21,7 +21,7 @@ public partial class Goblin : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         // Testing purpose only
-        var target = GetNodeOrNull("../Player") as Node2D;     
+        var target = GetNodeOrNull("../Player") as Node2D; 
         if(target != null)
             myVelocityComponent.Direction = target.GlobalPosition - this.GlobalPosition;
 
