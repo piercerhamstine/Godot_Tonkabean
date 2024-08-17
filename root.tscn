@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://do2almsuihljt"]
+[gd_scene load_steps=13 format=4 uid="uid://do2almsuihljt"]
 
 [ext_resource type="Script" path="res://Scripts/Player/CharacterController.cs" id="1_4g4n2"]
 [ext_resource type="Script" path="res://Scripts/Camera/SmoothFollow.cs" id="1_juo6i"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dyvy2y0dnuf7h" path="res://Scenes/Entities/npcs/Goblin.tscn" id="13_7ns2u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yjj7t"]
-size = Vector2(3582, 128)
+size = Vector2(4992, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0x2xt"]
 size = Vector2(32, 32)
@@ -22,17 +22,18 @@ size = Vector2(32, 32)
 [node name="EntitySpawner" type="Node" parent="."]
 script = ExtResource("1_tqqk6")
 
-[node name="ground" type="TileMap" parent="."]
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="TileMapLayer"]
 scale = Vector2(4, 4)
+tile_map_data = PackedByteArray("AAD//wAAAAAAAAAAAAD8/wAAAAABAAAAAAD9/wAAAAAAAAAAAAD+/wAAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAARAAAAAAABAAAAAAAQAAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAOAAAAAAABAAAAAAANAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAALAAAAAAABAAAAAAAKAAAAAAABAAAAAAAJAAAAAAABAAAAAAAIAAAAAAAAAAAAAAAHAAAAAAABAAAAAAAGAAAAAAABAAAAAAAFAAAAAAABAAAAAAD7/wAAAAABAAAAAAD6/wAAAAAAAAAAAAD5/wAAAAAAAAAAAAD4/wAAAAAAAAAAAAD3/wAAAAABAAAAAAD2/wAAAAAAAAAAAAD1/wAAAAAAAAAAAAD0/wAAAAABAAAAAADz/wAAAAAAAAAAAADy/wAAAAABAAAAAADx/wAAAAAAAAAAAADw/wAAAAABAAAAAADv/wAAAAAAAAAAAADu/wAAAAABAAAAAADt/wAAAAABAAAAAADs/wAAAAABAAAAAADr/wAAAAABAAAAAAA=")
 tile_set = ExtResource("2_ced8p")
-format = 2
-layer_0/tile_data = PackedInt32Array(65535, 0, 0, 65534, 0, 0, 1, 0, 0, 2, 65536, 0, 3, 65536, 0, 4, 65536, 0, 5, 0, 0, 65532, 0, 0, 65533, 65536, 0, 65530, 0, 0, 0, 0, 0, 65531, 65536, 0, 65529, 65536, 0, 65528, 0, 0, 6, 0, 0, 7, 0, 0, 8, 65536, 0, 9, 0, 0, 10, 65536, 0, 11, 0, 0, 14, 0, 0, 13, 0, 0, 15, 65536, 0, 12, 65536, 0, 65527, 65536, 0, 65526, 0, 0, 65525, 0, 0, 16, 0, 0)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="ground"]
-scale = Vector2(0.25, 0.25)
+[node name="StaticBody2D" type="StaticBody2D" parent="TileMapLayer"]
+position = Vector2(0, 64)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ground/StaticBody2D"]
-position = Vector2(384, 64)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapLayer/StaticBody2D"]
+position = Vector2(-192, 0)
 shape = SubResource("RectangleShape2D_yjj7t")
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
