@@ -5,16 +5,30 @@ using System.Collections.Generic;
 
 public partial class EntityDropComponent : Node2D
 {
-    [Export]
-    Godot.Collections.Array<PackedScene> droppableItems;
+    private Godot.Collections.Array<PackedScene> droppableItems;
+
+    public Godot.Collections.Array<PackedScene> DroppableItems{
+        get{
+            return droppableItems;
+        }
+
+        set{
+            droppableItems = value;
+        }
+    }
 
     [Signal]
     public delegate void ItemDropEventHandler();   
 	
-    public void DropItem(){
+    public void DropItem(Vector2 spawnPos){
+        CallDeferred(nameof(SpawnItems), spawnPos);
+    }
+
+    private void SpawnItems(Vector2 spawnPos){
         foreach(var item in droppableItems){
-            EntitySpawner.Instance.SpawnEntity(item);
-            EmitSignal(SignalName.ItemDrop);
+           var entity = EntitySpawner.Instance.SpawnEntity(item) as Node2D;
+           entity.GlobalPosition = spawnPos;
+           EmitSignal(SignalName.ItemDrop);
         }
     }
 }

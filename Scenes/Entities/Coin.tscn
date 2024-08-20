@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://jg1alfxqcqb8"]
+
+[ext_resource type="Script" path="res://Scripts/Components/PickupComponent.cs" id="1_2y5wo"]
+[ext_resource type="Texture2D" uid="uid://dh06lia7b57jr" path="res://square.png" id="2_nucsa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6fao5"]
+size = Vector2(16, 32)
+
+[node name="Coin" type="Node2D"]
+
+[node name="PickupComponent" type="Area2D" parent="."]
+script = ExtResource("1_2y5wo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupComponent"]
+shape = SubResource("RectangleShape2D_6fao5")
+
+[node name="Square" type="Sprite2D" parent="."]
+self_modulate = Color(0.876213, 0.781693, 0, 1)
+scale = Vector2(0.2, 0.8)
+texture = ExtResource("2_nucsa")

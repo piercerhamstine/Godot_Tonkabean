@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://do2almsuihljt"]
+[gd_scene load_steps=15 format=4 uid="uid://do2almsuihljt"]
 
 [ext_resource type="Script" path="res://Scripts/Player/CharacterController.cs" id="1_4g4n2"]
 [ext_resource type="Script" path="res://Scripts/Camera/SmoothFollow.cs" id="1_juo6i"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" path="res://Scripts/Weapons/WeaponRanged.cs" id="4_o70hc"]
 [ext_resource type="Script" path="res://Scripts/Player/Player.cs" id="4_x4h4l"]
 [ext_resource type="PackedScene" uid="uid://bugqlquoo3gfn" path="res://Scripts/Entities/Projectiles/ProjectileTypes/Bolt.tscn" id="5_2wr5w"]
+[ext_resource type="PackedScene" uid="uid://c064jin8407f4" path="res://Scenes/Components/LootDropComponent.tscn" id="11_atmey"]
 [ext_resource type="Script" path="res://Scripts/Managers/EnemySpawnManager.cs" id="12_f3el1"]
+[ext_resource type="PackedScene" uid="uid://jg1alfxqcqb8" path="res://Scenes/Entities/Coin.tscn" id="12_uqwlr"]
 [ext_resource type="PackedScene" uid="uid://dyvy2y0dnuf7h" path="res://Scenes/Entities/npcs/Goblin.tscn" id="13_7ns2u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yjj7t"]
@@ -21,6 +23,10 @@ size = Vector2(32, 32)
 
 [node name="EntitySpawner" type="Node" parent="."]
 script = ExtResource("1_tqqk6")
+
+[node name="EnemySpawnManager" type="Node" parent="."]
+script = ExtResource("12_f3el1")
+enemyType = ExtResource("13_7ns2u")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 
@@ -77,6 +83,11 @@ self_modulate = Color(7.70092e-07, 0.79277, 0.469195, 1)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_r2rtj")
 
-[node name="EnemySpawnManager" type="Node" parent="."]
-script = ExtResource("12_f3el1")
-enemyType = ExtResource("13_7ns2u")
+[node name="Goblin" parent="." instance=ExtResource("13_7ns2u")]
+position = Vector2(-248, -24)
+
+[node name="LootDropComponent" parent="Goblin" node_paths=PackedStringArray("myHealthComponent") instance=ExtResource("11_atmey")]
+lootList = Array[PackedScene]([ExtResource("12_uqwlr")])
+myHealthComponent = NodePath("../HealthComponent")
+
+[editable path="Goblin"]

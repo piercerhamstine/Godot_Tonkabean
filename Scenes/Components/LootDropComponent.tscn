@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c064jin8407f4"]
+
+[ext_resource type="Script" path="res://Scripts/Components/LootDropComponent.cs" id="1_im7gg"]
+[ext_resource type="PackedScene" uid="uid://dquj46gfde5hn" path="res://Scenes/Components/EntityDropComponent.tscn" id="2_hkfxx"]
+
+[node name="LootDropComponent" type="Node2D" node_paths=PackedStringArray("myEntityDropComponent")]
+script = ExtResource("1_im7gg")
+myEntityDropComponent = NodePath("EntityDropComponent")
+
+[node name="EntityDropComponent" parent="." instance=ExtResource("2_hkfxx")]
